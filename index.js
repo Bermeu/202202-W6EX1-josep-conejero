@@ -10,6 +10,11 @@ program.option("-b <number>");
 program.parse();
 const cliOptions = program.opts();
 
+if (Number.isNaN(+cliOptions.a) || Number.isNaN(+cliOptions.b)) {
+  debug("ERROR: ALGUNO DE LOS DOS DATOS NO ES UN NÚMERO");
+  process.exit(1);
+}
+
 const suma = +cliOptions.a + +cliOptions.b;
 const resta = +cliOptions.a - +cliOptions.b;
 const multiplicacion = +cliOptions.a * +cliOptions.b;
