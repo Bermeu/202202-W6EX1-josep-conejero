@@ -4,15 +4,28 @@ const configuration = require("dotenv").config();
 const chalk = require("chalk");
 const { program } = require("commander");
 const debug = require("debug")("josepfentsumes");
+const prompt = require("prompt");
 
 program.option("-a <number>");
 program.option("-b <number>");
 program.parse();
 const cliOptions = program.opts();
+let numero1 = 0;
+let numero2 = 0;
 
-if (Number.isNaN(+cliOptions.a) || Number.isNaN(+cliOptions.b)) {
-  debug("ERROR: ALGUNO DE LOS DOS DATOS NO ES UN NÚMERO");
-  process.exit(1);
+if (Number.isNaN(+cliOptions.a) && Number.isNaN(+cliOptions.b)) {
+  (async () => {
+    const { a: numero1, b: numero2 } = await prompt.get([
+      "number 1",
+      "number 2",
+    ]);
+  })();
+  debug("numero 1", numero1);
+} else {
+  if (Number.isNaN(+cliOptions.a) || Number.isNaN(+cliOptions.b)) {
+    debug("ERROR: ALGUNO DE LOS DOS DATOS NO ES UN NÚMERO");
+    process.exit(1);
+  }
 }
 
 const suma = +cliOptions.a + +cliOptions.b;
